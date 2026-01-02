@@ -39,8 +39,8 @@ function normalizeBibleText(text: string): string {
 export default function SpeakPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const sessionType = searchParams.get("type") || "morning"
-  const verseParam = searchParams.get("verse") || "A"
+  const sessionType = searchParams?.get("type") || "morning"
+  const verseParam = searchParams?.get("verse") || "A"
 
   const [child, setChild] = useState<ChildProfile | null>(null)
   const [isRecording, setIsRecording] = useState(false)
