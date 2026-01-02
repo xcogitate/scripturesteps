@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -12,7 +12,7 @@ import { prefetchOfflineContent } from "@/lib/offline-download"
 import { useToast } from "@/components/ui/use-toast"
 import { UpgradeModal } from "@/components/upgrade-modal"
 
-export default function OfflineDownloadPage() {
+function OfflineDownloadContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const source = searchParams.get("source")
@@ -243,5 +243,13 @@ export default function OfflineDownloadPage() {
         onUpgrade={() => router.push("/settings/billing")}
       />
     </div>
+  )
+}
+
+export default function OfflineDownloadPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gradient-to-b from-primary/5 via-secondary/5 to-accent/5" />}>
+      <OfflineDownloadContent />
+    </Suspense>
   )
 }
